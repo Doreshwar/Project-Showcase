@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Number Checker</title>
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <style>
+        /* Body background: gradient with soft colors */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.8), rgba(234, 76, 137, 0.8)), no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        h1, h2 {
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Input and button styling */
+        label {
+            font-size: 1.2em;
+            color: #fff;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 150px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #357ABD;
+        }
+
+        p#result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        p#result.show {
+            opacity: 1;
+        }
+
+        /* Team section styling with transparency */
+        .team-section {
+            margin-top: 40px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .team-member {
+            display: inline-block;
+            margin: 20px;
+            text-align: center;
+        }
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            transition: transform 0.3s ease;
+        }
+        .team-member img:hover {
+            transform: scale(1.1);
+        }
+        .team-member h3 {
+            margin: 10px 0 5px 0;
+            font-size: 1.2em;
+            color: #fff;
+        }
+
+        /* Social icons inline and styled */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .social-icons a {
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+            transition: transform 0.3s ease;
+        }
+        .social-icons img:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>Prime Number Checker</h1>
+    
+    <!-- Input field for user to enter a number -->
+    <label for="num">Enter a number:</label>
+    <input type="number" id="num" />
+    
+    <button id="check-btn">Check if Prime</button>
+
+    <!-- Area where the result will be displayed -->
+    <h2>Result:</h2>
+    <p id="result"></p>
+
+    <!-- PyScript: Python code that checks if a number is prime -->
+    <py-script>
+        def is_prime(n):
+            if n <= 1:
+                return False
+            for i in range(2, int(n**0.5) + 1):
+                if n % i == 0:
+                    return False
+            return True
+
+        def check_prime(event):
+            # Get the input value from the webpage
+            num_value = Element("num").element.value
+            result_element = Element("result").element
+            if num_value.isdigit():
+                num = int(num_value)
+                if is_prime(num):
+                    result_element.innerText = f"{num} is a prime number."
+                    result_element.classList.add("show")
+                else:
+                    result_element.innerText = f"{num} is not a prime number."
+                    result_element.classList.add("show")
+            else:
+                result_element.innerText = "Please enter a valid number."
+                result_element.classList.remove("show")
+
+        # Attach the Python function to the button click event
+        Element("check-btn").element.onclick = check_prime
+    </py-script>
+
+    <!-- Team Members Section -->
+    <div class="team-section">
+        <h2>Meet the Project Team</h2>
+        <!-- Team member 1 -->
+        <div class="team-member">
+            <img src="https://via.placeholder.com/150" alt="John Doe">
+            <h3>John Doe</h3>
+            <div class="social-icons">
+                <a href="https://twitter.com/johndoe" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+                </a>
+                <a href="https://github.com/johndoe" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+                </a>
+                <a href="https://linkedin.com/in/johndoe" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+
+        <!-- Team member 2 -->
+        <div class="team-member">
+            <img src="https://via.placeholder.com/150" alt="Jane Smith">
+            <h3>Jane Smith</h3>
+            <div class="social-icons">
+                <a href="https://twitter.com/janesmith" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+                </a>
+                <a href="https://github.com/janesmith" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+                </a>
+                <a href="https://linkedin.com/in/janesmith" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+
+        <!-- Team member 3 -->
+        <div class="team-member">
+            <img src="https://via.placeholder.com/150" alt="Sam Lee">
+            <h3>Sam Lee</h3>
+            <div class="social-icons">
+                <a href="https://twitter.com/samlee" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+                </a>
+                <a href="https://github.com/samlee" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+                </a>
+                <a href="https://linkedin.com/in/samlee" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+
+        <!-- Team member 4 -->
+        <div class="team-member">
+            <img src="https://via.placeholder.com/150" alt="Alex Kim">
+            <h3>Alex Kim</h3>
+            <div class="social-icons">
+                <a href="https://twitter.com/alexkim" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+                </a>
+                <a href="https://github.com/alexkim" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+                </a>
+                <a href="https://linkedin.com/in/alexkim" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
